@@ -65,10 +65,17 @@ namespace FileExampleApp
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string fullFileName = Path.Combine(filePath, "myfile.txt");
 
-            string fileContent = File.ReadAllText(fullFileName);
+            if (File.Exists(fullFileName))
+            {
 
-            Student savedStudent = JsonConvert.DeserializeObject<Student>(fileContent);
-            return savedStudent;
+                string fileContent = File.ReadAllText(fullFileName);
+
+                Student savedStudent = JsonConvert.DeserializeObject<Student>(fileContent);
+
+                return savedStudent;
+            }
+            else
+                return new Student();
         }
 
         private void Button_Clicked(object sender, EventArgs e)
